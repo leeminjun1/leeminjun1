@@ -1,0 +1,12 @@
+LEE MIN JUN - 2022 contribution calendar art
+Created in October 2026 using intentionally backdated art commits.
+Each marked date draws one pixel on the 2022 contribution calendar.
+
+#...###.###...#...#.###.#...#.....#.#.#.#...#
+#...#...#.....##.##..#..##..#.....#.#.#.##..#
+#...##..##....#.#.#..#..#.#.#.....#.#.#.#.#.#
+#...#...#.....#...#..#..#..##...#.#.#.#.#..##
+###.###.###...#...#.###.#...#...###.###.#...#
+
+Pixel dates:
+2022-01-24 pixel 0,0
