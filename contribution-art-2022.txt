@@ -10,3 +10,4 @@ Each marked date draws one pixel on the 2022 contribution calendar.
 
 Pixel dates:
 2022-01-24 pixel 0,0
+2022-01-25 pixel 0,1
