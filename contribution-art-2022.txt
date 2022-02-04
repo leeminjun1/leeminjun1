@@ -14,3 +14,4 @@ Pixel dates:
 2022-01-26 pixel 0,2
 2022-01-27 pixel 0,3
 2022-01-28 pixel 0,4
+2022-02-04 pixel 1,4
