@@ -27,3 +27,4 @@ Pixel dates:
 2022-03-07 pixel 6,0
 2022-03-11 pixel 6,4
 2022-03-21 pixel 8,0
+2022-03-22 pixel 8,1
