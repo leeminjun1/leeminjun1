@@ -16,7 +16,5 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-<picture>
-  <img src="profile-3d-contrib/profile-night-rainbow.svg" />
-</picture>
+![](profile-3d-contrib/profile-night-rainbow.svg)
 
