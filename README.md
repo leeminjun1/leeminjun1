@@ -16,5 +16,5 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-<img src="https://raw.githubusercontent.com/leeminjun1/leeminjun1/main/profile-3d-contrib/profile-night-rainbow.svg" alt="3d contrib" />
+<img src="https://raw.githubusercontent.com/leeminjun1/leeminjun1/main/profile-3d-contrib/profile-night-rainbow.svg?sanitize=true" />
 
