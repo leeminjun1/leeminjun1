@@ -17,10 +17,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           USERNAME: ${{ github.repository_owner }}
+      - name: Convert SVG to PNG
+        run: |
+          sudo apt-get install -y inkscape
+          inkscape profile-3d-contrib/profile-night-rainbow.svg \
+            --export-filename=profile-3d-contrib/profile-night-rainbow.png
+      
       - name: Commit & Push
         run: |
-          git config user.name leeminjun1
-          git config user.email lmjdooda@gmail.com  # 실제 이메일로
+          git config user.name 유저네임
+          git config user.email 유저이메일@gmail.com
           git add -A .
           git commit -m "generated"
           git push
