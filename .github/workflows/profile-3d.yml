@@ -10,23 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     name: generate-github-profile-3d-contrib
     steps:
-      - uses: actions/checkout@v4  # v2 → v4로 올리는 게 좋음
+      - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.TOKEN }}  # ← 이게 핵심! push 권한 부여
+          token: ${{ secrets.TOKEN }}
+
       - uses: yoshi389111/github-profile-3d-contrib@0.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           USERNAME: ${{ github.repository_owner }}
+
       - name: Convert SVG to PNG
         run: |
-          sudo apt-get install -y inkscape
-          inkscape profile-3d-contrib/profile-night-rainbow.svg \
-            --export-filename=profile-3d-contrib/profile-night-rainbow.png
-      
+          sudo apt-get install -y librsvg2-bin
+          rsvg-convert -w 1280 profile-3d-contrib/profile-night-rainbow.svg \
+            -o profile-3d-contrib/profile-night-rainbow.png
+
       - name: Commit & Push
         run: |
-          git config user.name 유저네임
-          git config user.email 유저이메일@gmail.com
+          git config user.name leeminjun1
+          git config user.email lmjdooda@github.com
           git add -A .
           git commit -m "generated"
           git push
