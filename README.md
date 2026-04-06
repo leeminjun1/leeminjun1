@@ -1,3 +1,3 @@
 ## Hi there 👋
 
-<img src="https://raw.githubusercontent.com/leeminjun1/leeminjun1/main/profile-3d-contrib/profile-night-rainbow.svg" width="100%" />
+<img src="https://leeminjun1.github.io/leeminjun1/profile-3d-contrib/profile-night-rainbow.svg" width="100%" />
