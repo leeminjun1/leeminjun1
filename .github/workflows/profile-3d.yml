@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: generate-github-profile-3d-contrib
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,6 +22,7 @@ jobs:
 
       - name: Convert SVG to PNG
         run: |
+          sudo apt-get update
           sudo apt-get install -y librsvg2-bin
           echo "=== 파일 확인 ==="
           ls -la profile-3d-contrib/
@@ -29,6 +31,15 @@ jobs:
             -o profile-3d-contrib/profile-night-rainbow.png && echo "성공" || echo "실패"
           echo "=== 변환 후 파일 확인 ==="
           ls -la profile-3d-contrib/
+
+      - name: Generate snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-contribution-grid-snake.gif
 
       - name: Commit & Push
         run: |
