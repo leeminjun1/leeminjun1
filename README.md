@@ -4,4 +4,6 @@
 
 
 
-![3D Contribution](./profile-3d-contrib/profile-season-animate.svg)
+
+
+![3D Contribution](https://raw.githubusercontent.com/leeminjun1/leeminjun1/main/profile-3d-contrib/profile-block.svg)
