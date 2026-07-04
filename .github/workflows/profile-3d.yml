@@ -1,52 +1,42 @@
-name: GitHub-Profile-3D-Contrib
+name: Deploy GitHub Pages
 
 on:
-  schedule:
-    - cron: "0 18 * * *"
+  push:
+    branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    name: generate-github-profile-3d-contrib
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.TOKEN }}
 
-      - uses: yoshi389111/github-profile-3d-contrib@0.6.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          USERNAME: ${{ github.repository_owner }}
+      - uses: actions/configure-pages@v6
 
-      - name: Convert SVG to PNG
+      - name: Prepare site
         run: |
-          sudo apt-get update
-          sudo apt-get install -y librsvg2-bin
-          echo "=== 파일 확인 ==="
-          ls -la profile-3d-contrib/
-          echo "=== 변환 시작 ==="
-          rsvg-convert -w 1280 profile-3d-contrib/profile-night-rainbow.svg \
-            -o profile-3d-contrib/profile-night-rainbow.png && echo "성공" || echo "실패"
-          echo "=== 변환 후 파일 확인 ==="
-          ls -la profile-3d-contrib/
+          mkdir site
+          cp -R dist site/
+          cp -R profile-3d-contrib site/
+          printf '<!doctype html><meta charset="utf-8"><title>leeminjun1</title>\n' > site/index.html
 
-      - name: Generate snake
-        uses: Platane/snk@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
-            dist/github-contribution-grid-snake.gif
+          path: site
 
-      - name: Commit & Push
-        run: |
-          git config user.name leeminjun1
-          git config user.email 실제이메일@gmail.com
-          git status
-          git add -A .
-          git status
-          git commit -m "generated" || echo "커밋할 내용 없음"
-          git push
+      - id: deployment
+        uses: actions/deploy-pages@v5
