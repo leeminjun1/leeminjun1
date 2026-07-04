@@ -1,42 +1,52 @@
-name: Deploy GitHub Pages
+name: GitHub-Profile-3D-Contrib
 
 on:
-  push:
-    branches: [main]
+  schedule:
+    - cron: "0 18 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    name: generate-github-profile-3d-contrib
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/configure-pages@v6
-
-      - name: Prepare site
-        run: |
-          mkdir site
-          cp -R dist site/
-          cp -R profile-3d-contrib site/
-          printf '<!doctype html><meta charset="utf-8"><title>leeminjun1</title>\n' > site/index.html
-
-      - uses: actions/upload-pages-artifact@v5
         with:
-          path: site
+          token: ${{ secrets.TOKEN }}
 
-      - id: deployment
-        uses: actions/deploy-pages@v5
+      - uses: yoshi389111/github-profile-3d-contrib@0.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+
+      - name: Convert SVG to PNG
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+          echo "=== 파일 확인 ==="
+          ls -la profile-3d-contrib/
+          echo "=== 변환 시작 ==="
+          rsvg-convert -w 1280 profile-3d-contrib/profile-night-rainbow.svg \
+            -o profile-3d-contrib/profile-night-rainbow.png && echo "성공" || echo "실패"
+          echo "=== 변환 후 파일 확인 ==="
+          ls -la profile-3d-contrib/
+
+      - name: Generate snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-contribution-grid-snake.gif
+
+      - name: Commit & Push
+        run: |
+          git config user.name leeminjun1
+          git config user.email 실제이메일@gmail.com
+          git status
+          git add -A .
+          git status
+          git commit -m "generated" || echo "커밋할 내용 없음"
+          git push
